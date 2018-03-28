@@ -7,9 +7,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CommonMethodService {
   private headers = new Headers({ 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Origin': '*' });
   private options: any;
-  public innerHeight: number
+  public innerHeight: number;
+  public current_user: any = null;
   constructor(private http: Http, private parentRouter: Router, private snackBar: MatSnackBar) {
-    this.innerHeight = Window['innerHeight'];
+    this.innerHeight = window['innerHeight'];
   }
 
   serverRequest(url: string, type: string, data: any) {
@@ -22,8 +23,11 @@ export class CommonMethodService {
   webApiError(error: any) {
     if (error && error.status === 401) {
       this.parentRouter.navigate(['./login']);
-    } else if (error && error.status === 400) {
-      this.parentRouter.navigate(['./project-panel/no-access']);
+    } else if (error && error.status === 400 && error._body) {
+      let err = JSON.parse(error._body);
+      if (err.length) {
+        error.statusText = err[0].msg;
+      }
     }
     this.openSnackBar(error.statusText || 'Unknown Error');
   }

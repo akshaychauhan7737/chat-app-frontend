@@ -3,24 +3,14 @@
 html {
     height: 97vh;
 }
-
 body {
     min-height: 97%;
 }
-.padding-top-10 {
-    padding-top : 10px
-}
+
 .cursor-pointer {
     cursor: pointer;
 }
-.parent-vertical {
-    display: table;
-    height: 100%;
-    width: 100%;;
-}
-.child-vertical {
-    display: table-cell;
-    height: 100%;
-    vertical-align: middle;
-    text-align: center;
+
+.text-left {
+    text-align: left
 }

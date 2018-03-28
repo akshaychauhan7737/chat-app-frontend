@@ -14,19 +14,13 @@ export class AuthResolver implements Resolve<any> {
     return new Observable(observer => {
       this.commonMehod.serverRequest(AppConfig.SERVER_URLS.IS_AUTHENTICATE, 'get', null)
         .map((response: any) => response.json()).subscribe(
-          (successs: any) => {
-            console.log(successs)
-            observer.next(successs);
+          (success: any) => {
+            this.commonMehod.current_user = success.user;
+            observer.next(success);
             observer.complete();
           },
           (error: any) => {
-            if (error && error.status === 400) {
-              observer.next(JSON.parse(error._body));
-            } else if (error.status === 401) {
-              this.router.navigate(['./login']);
-            } else {
-              this.commonMehod.webApiError(error);
-            }
+            this.commonMehod.webApiError(error);
             observer.complete();
           })
     })

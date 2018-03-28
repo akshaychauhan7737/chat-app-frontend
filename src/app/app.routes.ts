@@ -13,7 +13,7 @@ export const AppRoutes: Routes = [
     },
     {
         path: 'home', component: HomeComponent, resolve: {
-         //   userDetail: AuthResolver
+            userDetail: AuthResolver
         }
     },
     {

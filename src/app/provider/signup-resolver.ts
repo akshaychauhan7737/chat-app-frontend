@@ -14,19 +14,16 @@ export class SignupResolver implements Resolve<any> {
         return new Observable(observer => {
             this.commonMehod.serverRequest(AppConfig.SERVER_URLS.IS_AUTHENTICATE, 'get', null)
                 .map((response: any) => response.json()).subscribe(
-                    (successs: any) => {
-                        console.log(successs)
+                    (success: any) => {
+                        this.commonMehod.current_user = success.user;
                         observer.complete();
                         this.router.navigate(['./home']);
                     },
                     (error: any) => {
-                        if (error && error.status === 400) {
-                            this.router.navigate(['./home']);
-                        } else if (error.status === 401) {
+                        if (error.status === 401) {
                             observer.next(error);
-                        } else {
-                            this.commonMehod.webApiError(error);
                         }
+                        this.commonMehod.webApiError(error);
                         observer.complete();
                     })
         })

@@ -12,6 +12,9 @@ export class SignupComponent implements OnInit {
   private signupForm: FormGroup;
   constructor(private commonMehod: CommonMethodService, private router: Router, private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
+      name: ['', Validators.compose([
+        Validators.required
+      ])],
       email: ['', Validators.compose([
         Validators.required, Validators.pattern(AppConfig.VALIDATION_REGEX.EMAIL_REGEX)
       ])],
@@ -21,7 +24,7 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['', Validators.compose([
         Validators.required, Validators.minLength(6)
       ])],
-      user_role: ['user', ]
+      user_role: ['user']
     });
   }
 
