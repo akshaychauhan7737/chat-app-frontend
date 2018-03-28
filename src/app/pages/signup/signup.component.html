@@ -1,0 +1,33 @@
+<div class="parent-vertical" [style.height.px]="700 - 16">
+  <div class="child-vertical">
+    <form [formGroup]="signupForm" (ngSubmit)="signupForm.valid ? signup(): ''">
+      <div class="padding-top-10">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="padding-top-10">
+        <mat-radio-group formControlName="user_role">
+          <mat-radio-button value="user">User</mat-radio-button>
+          <mat-radio-button value="trainer">Trainer</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="padding-top-10">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </div>
+      <div class="padding-top-10">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Confirm Password" formControlName="confirmPassword">
+        </mat-form-field>
+      </div>
+      <div class="padding-top-10">
+        <button type="submit" mat-raised-button color="primary">Sign up</button>
+      </div>
+      <div class="padding-top-10">
+        <span class="cursor-pointer" [routerLink]="['/login']">Already have an account?</span>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="parent-vertical" [style.height.px]="700 - 16">
+  <div class="child-vertical">
+    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid ? login(): ''">
+      <div class="padding-top-10">
+        <mat-form-field class="example-full-width" >
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="padding-top-10">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </div>
+      <div class="padding-top-10">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+      </div>
+      <span  class="cursor-pointer" [routerLink]="['/signup']">Create An Account</span>
+    </form>
+  </div>
+</div>
