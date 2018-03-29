@@ -25,3 +25,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Features included
+1. User login
+2. User signup
+3. Create new chat room with user
+4. Create socket room using logged in user id
+5. Can chat existing user by selecting from list or create new user dropdown
+6. Multi window single user chat
+7. After logout, disconnect from all exiting window and go to login screen
+8. Change user password
