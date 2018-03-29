@@ -9,7 +9,7 @@ export class LoginResolver implements Resolve<any> {
     private commonMehod: CommonMethodService,
     private router: Router
   ) { }
-
+  /* Auth check before public page route */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     return new Observable(observer => {
       this.commonMehod.serverRequest(AppConfig.SERVER_URLS.IS_AUTHENTICATE, 'get', null)
@@ -20,11 +20,10 @@ export class LoginResolver implements Resolve<any> {
             this.router.navigate(['./home']);
           },
           (error: any) => {
-             if (error.status === 401) {
+            if (error.status === 401) {
               observer.next(error);
             }
             observer.complete();
-            this.commonMehod.webApiError(error);
           })
     })
   }

@@ -1,6 +1,6 @@
 <div class="valign-parent" [style.height.px]="commonMehod.innerHeight - 16">
   <div class="valign-child full-width">
-    <form  class="signup-form" [formGroup]="signupForm" (ngSubmit)="signupForm.valid ? signup(): ''">
+    <form  class="signup-form" [formGroup]="signupForm" (ngSubmit)="signupForm.valid && signupForm.value.confirmPassword === signupForm.value.password ? signup(): ''">
       <div class="padding-top-10">
         <mat-form-field class="full-width">
           <input matInput placeholder="Name" formControlName="name">
@@ -10,6 +10,9 @@
         <mat-form-field class="full-width">
           <input matInput placeholder="Email" formControlName="email">
         </mat-form-field>
+        <mat-error *ngIf="signupForm.controls.email.hasError('pattern') && !signupForm.controls.email.hasError('required')">
+          {{errorMsg.INVALID_EMAIL_ERROR}}
+        </mat-error>
       </div>
       <div class="padding-top-10 text-left">
         <mat-radio-group formControlName="user_role">
@@ -21,11 +24,17 @@
         <mat-form-field class="full-width">
           <input type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
+        <mat-error *ngIf="signupForm.controls.password.hasError('minlength') && !signupForm.controls.password.hasError('required')">
+          {{errorMsg.INVALID_PASSWORD_ERROR}}
+        </mat-error>
       </div>
       <div class="padding-top-10">
         <mat-form-field class="full-width">
           <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
         </mat-form-field>
+        <mat-error *ngIf="signupForm.controls.confirmPassword.touched &&  signupForm.value.confirmPassword !== signupForm.value.password  && !signupForm.controls.password.hasError('minlength') && !signupForm.controls.password.hasError('required')">
+          {{errorMsg.CONFIRM_PASSWORD_ERROR}}
+        </mat-error>
       </div>
       <div class="padding-top-10">
         <button type="submit" mat-raised-button color="primary">Sign up</button>

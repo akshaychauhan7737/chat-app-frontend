@@ -1,3 +1,55 @@
-<p>
-  home works!
-</p>
+<mat-toolbar>
+  <span class="toolbar-title">{{commonMehod.current_user.profile.name}}</span>
+  <button mat-button [matMenuTriggerFor]="menu">Create New Chat</button>
+  <button mat-icon-button (click)="logoutUser()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="createNewChat(user)" *ngFor="let user of users" mat-menu-item>{{user.profile.name}}</button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-grid-list cols="6" rowHeight="{{chat_window_height}}">
+  <mat-grid-tile [colspan]="2">
+    <mat-list role="listitem" class="chat-list">
+      <div *ngFor="let chatroom of chat_rooms">
+        <mat-list-item [ngClass]="selectedRoom && selectedRoom._id === chatroom._id ? 'active-chat': ''" class="cursor-pointer" (click)="selectedRoom && selectedRoom._id  === chatroom._id ? '' : selectChatRoom(chatroom)">
+          <img matListAvatar src="assets/images/default-user.jpg" alt="defaut-image">
+          <h3 *ngFor="let user of chatroom.user_ids" matLine>
+            <span *ngIf="user.user_id._id !== commonMehod.current_user._id">
+              {{user.user_id.profile.name}}
+            </span>
+            <mat-icon *ngIf="user.user_id._id !== commonMehod.current_user._id" [ngClass]="user.is_online ? 'online': 'offline'">fiber_manual_record</mat-icon>
+          </h3>
+          <p matLine>
+            <span class="last-message"> {{chatroom.last_message.message.information}} </span>
+          </p>
+          <p matLine>
+            <span class="last-message"> {{chatroom.last_message.createdAt | date: 'medium'}} </span>
+          </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="4" class="chat-window">
+    <mat-list id="message-list" role="listitem" class="message-list">
+      <div class="message-list-content">
+        <mat-list-item [ngClass]="message.sender_id === commonMehod.current_user._id ? 'right-message': 'left-message'" *ngFor="let message of messages"
+          class="cursor-pointer">
+          <span class="message">
+            {{message.message.information}}
+          </span>
+        </mat-list-item>
+      </div>
+    </mat-list>
+    <form class="chat-form" [formGroup]="newChatForm" (ngSubmit)="newChatForm.valid && selectedRoom ? sendMessage(): ''">
+      <mat-form-field class="send-message-input">
+        <textarea color="light" type="text" matInput formControlName="message" placeholder="What's your message?"> </textarea>
+      </mat-form-field>
+      <button class="margin-left-10" color="primary" mat-button type="submit" color="light">
+        Send
+      </button>
+    </form>
+  </mat-grid-tile>
+</mat-grid-list>

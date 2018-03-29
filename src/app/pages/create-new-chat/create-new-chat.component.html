@@ -1,0 +1,12 @@
+<form class="chat-form" [formGroup]="newChatForm" (ngSubmit)="newChatForm.valid ? sendNewMessage(): ''">
+  <h1 mat-dialog-title>Message To {{data.profile.name}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="message" placeholder="What's your message?">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button type="submit">Send</button>
+  </div>
+</form>

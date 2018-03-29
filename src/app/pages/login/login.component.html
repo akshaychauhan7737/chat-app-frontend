@@ -2,14 +2,20 @@
   <div class="valign-child full-width">
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid ? login(): ''">
       <div class="padding-top-10">
-        <mat-form-field class="full-width" >
+        <mat-form-field class="full-width">
           <input matInput placeholder="Email" formControlName="email">
         </mat-form-field>
+        <mat-error *ngIf="loginForm.controls.email.hasError('pattern') && !loginForm.controls.email.hasError('required')">
+           {{errorMsg.INVALID_EMAIL_ERROR}}
+        </mat-error>
       </div>
       <div class="padding-top-10">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Password" formControlName="password">
+          <input type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
+        <mat-error *ngIf="loginForm.controls.password.hasError('minlength') && !loginForm.controls.password.hasError('required')">
+           {{errorMsg.INVALID_PASSWORD_ERROR}}
+        </mat-error>
       </div>
       <div class="padding-top-10">
         <button type="submit" mat-raised-button color="primary">Login</button>

@@ -9,7 +9,8 @@ export class AuthResolver implements Resolve<any> {
     private commonMehod: CommonMethodService,
     private router: Router
   ) { }
-
+  /* Auth check before private page route  */
+ 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     return new Observable(observer => {
       this.commonMehod.serverRequest(AppConfig.SERVER_URLS.IS_AUTHENTICATE, 'get', null)

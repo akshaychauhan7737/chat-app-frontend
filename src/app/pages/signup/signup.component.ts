@@ -9,8 +9,11 @@ import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  private signupForm: FormGroup;
-  constructor(private commonMehod: CommonMethodService, private router: Router, private formBuilder: FormBuilder) {
+  /* Signup form instance */
+  public signupForm: FormGroup;
+  /* Error message variable  */
+  public errorMsg: any = AppConfig.ERROR_MESSAGE;
+  constructor(public commonMehod: CommonMethodService, private router: Router, private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.compose([
         Validators.required
@@ -19,10 +22,10 @@ export class SignupComponent implements OnInit {
         Validators.required, Validators.pattern(AppConfig.VALIDATION_REGEX.EMAIL_REGEX)
       ])],
       password: ['', Validators.compose([
-        Validators.required, Validators.minLength(6)
+        Validators.required, Validators.minLength(AppConfig.VALIDATION_REGEX.PASSWORD_MIN_LENGTH)
       ])],
       confirmPassword: ['', Validators.compose([
-        Validators.required, Validators.minLength(6)
+        Validators.required, Validators.minLength(AppConfig.VALIDATION_REGEX.PASSWORD_MIN_LENGTH)
       ])],
       user_role: ['user']
     });
@@ -31,13 +34,11 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  /* Sign up event */
   signup() {
-    console.log('signup')
     this.commonMehod.serverRequest(AppConfig.SERVER_URLS.SIGN_UP, 'post', this.signupForm.value)
       .map((response: any) => response.json()).subscribe(
         (success: any) => {
-          console.log(success)
           this.router.navigate(['./home']);
         },
         (error: any) => {

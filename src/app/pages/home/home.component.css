@@ -1,0 +1,80 @@
+.chat-list {
+  height: 98%;
+  width: 100%;
+}
+
+.message-list {
+  height: calc( 100% - 100px );
+  width: 100%;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+.send-message-input {
+  width: 80%;
+}
+.message-list-content{
+  margin-bottom: 100px;
+}
+.chat-form  {
+  position: absolute;
+  bottom: -15px;
+  height: 100px;
+  width: 100%;
+  left: 20px;
+}
+mat-grid-tile {
+  background: lightblue;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.toolbar-title {
+  flex: 1 1 auto;
+}
+
+.left-message {
+    justify-content: flex-start;
+    display: flex  !important;
+}
+.left-message .message {
+    border-bottom-right-radius: 1.3em;
+    border-top-right-radius: 1.3em;
+    background-color: #f1f0f0;
+    padding: 10px;
+}
+
+.right-message {
+    justify-content: flex-end;
+    display: flex !important;
+}
+.right-message .message {
+    border-bottom-left-radius: 1.3em;
+    border-top-left-radius: 1.3em;
+    background-color: #0084ff;
+    padding: 10px;
+    color: white;
+    text-align: right
+}
+
+.chat-window .mat-figure {
+    flex-direction: column;
+    position: relative;
+}
+.active-chat {
+  background:#f2f2f2 !important;
+}
+.last-message {
+  color: rgba(153, 153, 153, 1);
+}
+.online {
+  color: springgreen;
+  position: absolute;
+  right: 15px;
+}
+.offline {
+  color:lightgray;
+  position: absolute;
+  right: 15px;
+}
